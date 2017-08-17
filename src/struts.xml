@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+
+	<constant name="struts.enable.SlashesInActionNames" value="true" />
+	<package name="strutsqs" extends="struts-default" >
+		 <result-types>
+            <result-type name="direct" class="com.framework.dispathcer.DirectResult"/>
+        </result-types>
+        
+        <interceptors >
+        <interceptor  name="sessionOutTime" class="com.common.interceptor.SessionInterceptor" >
+			<param name="excludeMethods">login,signup</param>
+		</interceptor>	
+        
+        <interceptor-stack name="cmsDefaultStack">
+			<interceptor-ref name="sessionOutTime"/>
+			<interceptor-ref name="defaultStack"/>	
+			</interceptor-stack>
+		</interceptors>
+	<default-interceptor-ref name="cmsDefaultStack"/>
+        
+	</package>	
+
+	
+	<package name="user" namespace="/cms/user" extends="strutsqs">
+		<action name="/*" method="{1}" class="com.cms.user.action.UserAction">
+			<result name="*" type="direct"></result>
+		</action>
+	</package>
+	
+	<package name="student" namespace="/cms/student" extends="strutsqs">
+		<action name="/*/*/*" method="{3}" class="com.cms.{1}.action.{2}Action">
+			<result name="*" type="direct"></result>
+		</action>
+	</package>
+	
+	<package name="admin" namespace="/cms/admin" extends="strutsqs">
+		<action name="/*/*/*" method="{3}" class="com.cms.{1}.action.{2}Action">
+			<result name="*" type="direct"></result>
+		</action>
+	</package>
+	
+	<package name="teacher" namespace="/cms/teacher" extends="strutsqs">
+		<action name="/*/*/*" method="{3}" class="com.cms.{1}.action.{2}Action">
+			<result name="*" type="direct"></result>
+		</action>
+	</package>
+	
+	
+	
+	
+</struts>    
