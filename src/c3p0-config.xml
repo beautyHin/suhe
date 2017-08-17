@@ -3,7 +3,7 @@
 	<default-config>
 		<property name="jdbcUrl">jdbc:mysql://192.168.101.111:3306/sushe</property>
 		<property name="driverClass">com.mysql.jdbc.Driver</property>
-		<property name="user">root</property>
+		<property name="user">sushe</property>
 		<property name="password">123456</property>
 		<property name="acquireIncrement">3</property>
 		<property name="initialPoolSize">40</property>
