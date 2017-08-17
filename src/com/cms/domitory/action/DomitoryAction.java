@@ -2,11 +2,6 @@ package com.cms.domitory.action;
 
 
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-
 import com.cms.domitory.bean.DomitoryBean;
 import com.cms.domitory.dao.IDomitoryDao;
 import com.cms.domitory.dao.impl.DomitoryDao;
@@ -15,21 +10,27 @@ import com.framework.common.BaseAction;
 import com.framework.common.PageBean;
 import com.opensymphony.xwork2.ModelDriven;
 import com.opensymphony.xwork2.Preparable;
-
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 /*
  * 宿舍管理--宿舍管理员端
  */
 public class DomitoryAction extends BaseAction implements ModelDriven<DomitoryQuery> ,Preparable {
-	private DomitoryQuery query;
-	private IDomitoryDao domitoryDao;
+    private DomitoryQuery query;
+    private IDomitoryDao domitoryDao;
 
 	private String[] items;
 	private Integer pageCode;
 	private String listAction = "!/cms/teacher/domitory/Domitory/list.action";
-	public String getJspPath(String _jsp) {
+
+	private String getJspPath(String _jsp) {
 		
 		return "/jsp/cms/teacher/domitory/domitory"+_jsp;
 		
@@ -72,11 +73,10 @@ public class DomitoryAction extends BaseAction implements ModelDriven<DomitoryQu
 	
 	public String deleteBatch() {
 		domitoryDao = new DomitoryDao();
-		List<String> domitoryIds = new ArrayList<String>();
-		
-		for(String item : items) {
-			domitoryIds.add(item);
-		}
+		List<String> domitoryIds;
+        domitoryIds = new ArrayList<>();
+
+        domitoryIds.addAll(Arrays.asList(items));
 		
 		if(domitoryDao.deleteBatch(domitoryIds) > 0){
 			this.updateSuccess("删除成功");
@@ -117,7 +117,14 @@ public class DomitoryAction extends BaseAction implements ModelDriven<DomitoryQu
 		
 		getReponse().getWriter().print(jsonArray.toString());
 	}
-	
+
+    /**
+     * 宿舍是否住满
+     */
+    public void isFull() throws  Exception{
+        getReponse().getWriter().print("住满 or 未住满");
+    }
+
 	public DomitoryQuery getQuery() {
 		return query;
 	}
