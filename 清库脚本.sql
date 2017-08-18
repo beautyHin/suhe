@@ -8,3 +8,4 @@ delete from trepair;
 delete from tstudent;
 delete from tteacher;
 delete from tuser;
+delete from user;
