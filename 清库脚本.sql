@@ -10,3 +10,4 @@ delete from tteacher;
 delete from tuser;
 delete from user;
 delete from document;
+delete from org;
